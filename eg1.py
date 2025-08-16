@@ -1,7 +1,7 @@
 from google import genai
 
 # Replace with your actual Gemini API key
-API_KEY = "AIzaSyCJQeEqaLriyZVHozq-sweGF9QDG3f4-oI"
+API_KEY = ""
 
 client = genai.Client(api_key=API_KEY)
 
@@ -96,3 +96,4 @@ while True:
 
     response = chatbot_response(user_msg)
     print("Chatbot:", response)
+
