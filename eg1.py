@@ -1,3 +1,35 @@
+from google import genai
+
+# Replace with your actual Gemini API key
+API_KEY = "AIzaSyCJQeEqaLriyZVHozq-sweGF9QDG3f4-oI"
+
+client = genai.Client(api_key=API_KEY)
+
+def gpt():
+    print("🤖 Gemini Chatbot is ready! Type 'exit' to quit.\n")
+    
+    history = []
+
+    while True:
+        user_input = input("You: ")
+        if user_input.lower() in ["exit", "quit", "bye"]:
+            print("Bot: Goodbye! 👋")
+            break
+
+        history.append({"role": "user", "parts": [{"text": user_input}]})
+
+        response = client.models.generate_content(
+            model="gemini-2.5-flash",
+            contents=history
+        )
+
+        bot_reply = response.text
+        print("Bot:", bot_reply, "\n")
+
+        history.append({"role": "model", "parts": [{"text": bot_reply}]})
+
+
+
 def calculator():
     a = int(input("Enter the first number: "))
     b = int(input("Enter the second number: "))
@@ -29,7 +61,8 @@ def chatbot_response(user_input):
     if "weather" in user_input or '1' in user_input:
         return "You can check today's weather using OpenWeather API."
     elif "gpt" in user_input or '4' in user_input:
-        return "Why did the computer show up late to work? It had a hard drive!"
+        gpt()
+        return "  Returning to the main menu ..."
     elif "news" in user_input or '2' in user_input:
         return " code to be written "
     elif "movie" in user_input or '3' in user_input:
@@ -46,7 +79,7 @@ def chatbot_response(user_input):
                 calculator()
             else:
                 print("Invalid input. Type 'start' or 'exit'.")
-        return "  Returning to main menu  "
+        return "  Returning to the main menu ... "
 
     else:
         return "Sorry, I didn't get that. You can ask about weather or jokes."
